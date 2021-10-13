@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
 
 import './transaction.dart';
 
@@ -58,7 +59,7 @@ class MyHomePage extends StatelessWidget {
                   decoration: BoxDecoration(border: Border.all(color: Colors.purple, width: 2)),
                   padding: const EdgeInsets.all(10),
                   child: Text(
-                    tx.amount.toString(),
+                    '\$${tx.amount}',
                     style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.purple),
                   ),
                 ),
@@ -69,7 +70,7 @@ class MyHomePage extends StatelessWidget {
                       tx.title,
                       style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                    Text(tx.date.toString(), style: const TextStyle(color: Colors.grey)),
+                    Text(DateFormat.yMd().add_Hm().format(tx.date), style: const TextStyle(color: Colors.grey)),
                   ],
                 ),
               ]));
