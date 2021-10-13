@@ -31,9 +31,17 @@ class MyHomePage extends StatelessWidget {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            Card(child: Text('CHART')),
-            Card(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              width: double.infinity,
+              child: const Card(
+                color: Colors.blue,
+                elevation: 5,
+                child: Text('CHART'),
+              ),
+            ),
+            const Card(
               child: Text('List of Transactions'),
             )
           ],
