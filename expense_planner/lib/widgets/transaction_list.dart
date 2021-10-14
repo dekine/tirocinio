@@ -15,14 +15,20 @@ class TransactionList extends StatelessWidget {
       child: transactions.isEmpty
           ? Column(
               children: <Widget>[
+                const SizedBox(
+                  height: 30,
+                ),
                 Text(
                   'No transactions added yet',
                   style: Theme.of(context).textTheme.headline6,
                 ),
                 const SizedBox(
-                  height: 50,
+                  height: 30,
                 ),
-                Image.asset('assets/images/waiting.png', fit: BoxFit.contain),
+                SizedBox(
+                    height: 300,
+                    child: Image.asset('assets/images/waiting.png',
+                        fit: BoxFit.contain)),
               ],
             )
           : ListView.builder(
