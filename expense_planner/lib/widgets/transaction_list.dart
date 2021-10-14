@@ -3,7 +3,8 @@ import 'package:intl/intl.dart';
 import '../models/transaction.dart';
 
 class TransactionList extends StatelessWidget {
-  const TransactionList({Key? key, required this.transactions}) : super(key: key);
+  const TransactionList({Key? key, required this.transactions})
+      : super(key: key);
 
   final List<Transaction> transactions;
 
@@ -15,11 +16,15 @@ class TransactionList extends StatelessWidget {
           child: Row(children: <Widget>[
         Container(
           margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-          decoration: BoxDecoration(border: Border.all(color: Colors.purple, width: 2)),
+          decoration:
+              BoxDecoration(border: Border.all(color: Colors.purple, width: 2)),
           padding: const EdgeInsets.all(10),
           child: Text(
             '\$${tx.amount}',
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.purple),
+            style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                color: Colors.purple),
           ),
         ),
         Column(
@@ -29,7 +34,8 @@ class TransactionList extends StatelessWidget {
               tx.title,
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            Text(DateFormat.yMd().add_Hm().format(tx.date), style: const TextStyle(color: Colors.grey)),
+            Text(DateFormat.yMd().add_Hm().format(tx.date),
+                style: const TextStyle(color: Colors.grey)),
           ],
         ),
       ]));
