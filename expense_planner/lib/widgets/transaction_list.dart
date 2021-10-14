@@ -36,7 +36,7 @@ class TransactionList extends StatelessWidget {
                 return Card(
                   shadowColor: Theme.of(context).colorScheme.primaryVariant,
                   margin:
-                      const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
                   elevation: 5,
                   child: ListTile(
                     leading: CircleAvatar(
