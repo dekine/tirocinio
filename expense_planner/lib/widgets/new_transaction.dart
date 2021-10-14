@@ -20,11 +20,18 @@ class _NewTransactionState extends State<NewTransaction> {
     final enteredTitle = titleController.text;
     final enteredAmount = double.tryParse(amountController.text);
 
-    if (enteredTitle.isEmpty || enteredAmount == null || enteredAmount <= 0) {
+    if (enteredTitle.isEmpty ||
+        enteredAmount == null ||
+        _selectedDate == null ||
+        enteredAmount <= 0) {
       return;
     }
 
-    widget.addTx(titleController.text, double.tryParse(amountController.text));
+    widget.addTx(
+      enteredTitle,
+      enteredAmount,
+      _selectedDate,
+    );
     Navigator.of(context).pop();
   }
 
@@ -89,6 +96,7 @@ class _NewTransactionState extends State<NewTransaction> {
             ),
             ElevatedButton(
               child: const Text('Add transaction'),
+              onPressed: _submitData,
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.all(15.0),
                 primary: Theme.of(context).colorScheme.primary,
@@ -96,7 +104,6 @@ class _NewTransactionState extends State<NewTransaction> {
                     color: Theme.of(context).colorScheme.onPrimary,
                     fontSize: 16),
               ),
-              onPressed: _submitData,
             ),
           ],
         ),
