@@ -16,7 +16,19 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Expense Planner',
       theme: ThemeData(
-        primarySwatch: Colors.purple,
+        // primarySwatch: Colors.purple,
+        fontFamily: 'Quicksand',
+        textTheme: const TextTheme(
+          headline6: TextStyle(
+              fontFamily: 'OpenSans',
+              fontSize: 20,
+              fontWeight: FontWeight.bold),
+        ),
+        // appBarTheme: const AppBarTheme(
+        //     titleTextStyle: TextStyle(
+        //         fontFamily: 'OpenSans',
+        //         fontSize: 20,
+        //         fontWeight: FontWeight.bold)),
         colorScheme: const ColorScheme(
             primary: Colors.purple,
             background: Colors.white,
@@ -24,7 +36,7 @@ class MyApp extends StatelessWidget {
             surface: Colors.white,
             brightness: Brightness.light,
             error: Colors.red,
-            onBackground: Colors.indigo,
+            onBackground: Colors.black26,
             primaryVariant: Colors.deepPurple,
             secondaryVariant: Colors.deepOrange,
             onError: Colors.white,

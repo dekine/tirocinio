@@ -49,7 +49,7 @@ class _NewTransactionState extends State<NewTransaction> {
               child: const Text('Add transaction'),
               style: TextButton.styleFrom(
                 padding: const EdgeInsets.all(15.0),
-                primary: Colors.purple,
+                primary: Theme.of(context).colorScheme.primary,
                 textStyle: const TextStyle(fontSize: 16),
               ),
               onPressed: _submitData,
