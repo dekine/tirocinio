@@ -16,19 +16,19 @@ class TransactionList extends StatelessWidget {
           ? Column(
               children: <Widget>[
                 const SizedBox(
-                  height: 30,
+                  height: 10,
                 ),
                 Text(
                   'No transactions added yet',
                   style: Theme.of(context).textTheme.headline6,
                 ),
                 const SizedBox(
-                  height: 30,
+                  height: 10,
                 ),
                 SizedBox(
-                    height: 300,
+                    height: 250,
                     child: Image.asset('assets/images/waiting.png',
-                        fit: BoxFit.contain)),
+                        fit: BoxFit.cover)),
               ],
             )
           : ListView.builder(
