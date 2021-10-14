@@ -16,9 +16,23 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Expense Planner',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.purple,
+        colorScheme: const ColorScheme(
+            primary: Colors.purple,
+            background: Colors.white,
+            secondary: Colors.amber,
+            surface: Colors.white,
+            brightness: Brightness.light,
+            error: Colors.red,
+            onBackground: Colors.indigo,
+            primaryVariant: Colors.deepPurple,
+            secondaryVariant: Colors.deepOrange,
+            onError: Colors.white,
+            onPrimary: Colors.white,
+            onSecondary: Colors.white,
+            onSurface: Colors.white),
       ),
-      home: MyHomePage(title: 'Expense Planner'),
+      home: const MyHomePage(title: 'Personal Expenses'),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -101,12 +115,13 @@ class _MyHomePageState extends State<MyHomePage> {
           // mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            const SizedBox(
+            SizedBox(
               width: double.infinity,
               child: Card(
-                color: Colors.blue,
+                color: Theme.of(context).colorScheme.primary,
+                // color: Theme.of(context).primaryColor,
                 elevation: 5,
-                child: Text('CHART'),
+                child: const Text('CHART'),
               ),
             ),
             TransactionList(transactions: _userTransactions),
