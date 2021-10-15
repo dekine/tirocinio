@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:intl/intl.dart';
 
 class AdaptiveButton extends StatelessWidget {
   const AdaptiveButton({Key? key, required this.text, required this.handler})
