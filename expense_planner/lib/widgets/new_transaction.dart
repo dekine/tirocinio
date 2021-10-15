@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 
 class NewTransaction extends StatefulWidget {
@@ -76,40 +79,55 @@ class _NewTransactionState extends State<NewTransaction> {
                 controller: amountController,
                 onSubmitted: (_) => _submitData(),
               ),
-              SizedBox(
-                height: 70,
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Text(
-                        _selectedDate == null
-                            ? 'No Date Chosen'
-                            : 'Picked Date: ${DateFormat.yMd().format(_selectedDate!)}',
-                      ),
+              Platform.isAndroid
+                  ? SizedBox(
+                      height: 70,
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Text(
+                              _selectedDate == null
+                                  ? 'No Date Chosen'
+                                  : 'Picked Date: ${DateFormat.yMd().format(_selectedDate!)}',
+                            ),
+                          ),
+                          TextButton(
+                            child: const Text('Choose date'),
+                            style: TextButton.styleFrom(
+                              padding: const EdgeInsets.all(15.0),
+                              primary: Theme.of(context).colorScheme.primary,
+                              textStyle: const TextStyle(fontSize: 16),
+                            ),
+                            onPressed: _presentDatePicker,
+                          ),
+                        ],
+                      ))
+                  : SizedBox(
+                      height: 200,
+                      child: CupertinoDatePicker(
+                          mode: CupertinoDatePickerMode.date,
+                          use24hFormat: true,
+                          onDateTimeChanged: (date) {
+                            setState(() {
+                              _selectedDate = date;
+                            });
+                          }),
                     ),
-                    TextButton(
-                      child: const Text('Choose date'),
-                      style: TextButton.styleFrom(
+              Platform.isAndroid
+                  ? ElevatedButton(
+                      child: const Text('Add transaction'),
+                      onPressed: _submitData,
+                      style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.all(15.0),
                         primary: Theme.of(context).colorScheme.primary,
-                        textStyle: const TextStyle(fontSize: 16),
+                        textStyle: TextStyle(
+                            color: Theme.of(context).colorScheme.onPrimary,
+                            fontSize: 16),
                       ),
-                      onPressed: _presentDatePicker,
-                    ),
-                  ],
-                ),
-              ),
-              ElevatedButton(
-                child: const Text('Add transaction'),
-                onPressed: _submitData,
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.all(15.0),
-                  primary: Theme.of(context).colorScheme.primary,
-                  textStyle: TextStyle(
-                      color: Theme.of(context).colorScheme.onPrimary,
-                      fontSize: 16),
-                ),
-              ),
+                    )
+                  : CupertinoButton(
+                      child: const Text('Add transaction'),
+                      onPressed: _submitData),
             ],
           ),
         ),
