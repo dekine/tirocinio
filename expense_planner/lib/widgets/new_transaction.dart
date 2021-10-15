@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 
+import 'adaptive_button.dart';
+
 class NewTransaction extends StatefulWidget {
   const NewTransaction({Key? key, required this.addTx}) : super(key: key);
 
@@ -79,40 +81,23 @@ class _NewTransactionState extends State<NewTransaction> {
                 controller: amountController,
                 onSubmitted: (_) => _submitData(),
               ),
-              Platform.isAndroid
-                  ? SizedBox(
-                      height: 70,
-                      child: Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: Text(
-                              _selectedDate == null
-                                  ? 'No Date Chosen'
-                                  : 'Picked Date: ${DateFormat.yMd().format(_selectedDate!)}',
-                            ),
-                          ),
-                          TextButton(
-                            child: const Text('Choose date'),
-                            style: TextButton.styleFrom(
-                              padding: const EdgeInsets.all(15.0),
-                              primary: Theme.of(context).colorScheme.primary,
-                              textStyle: const TextStyle(fontSize: 16),
-                            ),
-                            onPressed: _presentDatePicker,
-                          ),
-                        ],
-                      ))
-                  : SizedBox(
-                      height: 200,
-                      child: CupertinoDatePicker(
-                          mode: CupertinoDatePickerMode.date,
-                          use24hFormat: true,
-                          onDateTimeChanged: (date) {
-                            setState(() {
-                              _selectedDate = date;
-                            });
-                          }),
-                    ),
+              SizedBox(
+                  height: 70,
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Text(
+                          _selectedDate == null
+                              ? 'No Date Chosen'
+                              : 'Picked Date: ${DateFormat.yMd().format(_selectedDate!)}',
+                        ),
+                      ),
+                      AdaptiveButton(
+                        text: 'Choose Date',
+                        handler: _presentDatePicker,
+                      ),
+                    ],
+                  )),
               Platform.isAndroid
                   ? ElevatedButton(
                       child: const Text('Add transaction'),
