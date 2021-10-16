@@ -14,10 +14,7 @@ class NewTransaction extends StatefulWidget {
   final Function addTx;
 
   @override
-  State<NewTransaction> createState() {
-    print('createState NewTransaction Widget');
-    return _NewTransactionState();
-  }
+  State<NewTransaction> createState() => _NewTransactionState();
 }
 
 class _NewTransactionState extends State<NewTransaction> {
