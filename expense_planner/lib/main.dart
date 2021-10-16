@@ -72,6 +72,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _userTransactions = [];
+  bool _showChart = false;
 
   void _startAddNewTransaction(BuildContext ctx) {
     showModalBottomSheet(
@@ -113,14 +114,47 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  bool _showChart = false;
+  List<Widget> _buildLandscapeContent(
+      MediaQueryData mediaQuery, AppBar appBar, Widget txListWidget) {
+    return [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('Show chart', style: Theme.of(context).textTheme.headline6),
+          Switch.adaptive(
+              activeColor: Theme.of(context).colorScheme.secondary,
+              value: _showChart,
+              onChanged: (a) => setState(() {
+                    _showChart = a;
+                  })),
+        ],
+      ),
+      _showChart
+          ? SizedBox(
+              height: (mediaQuery.size.height -
+                      appBar.preferredSize.height -
+                      mediaQuery.padding.top) *
+                  0.7,
+              child: Chart(recentTransactions: _recentTransactions))
+          : txListWidget,
+    ];
+  }
 
-  @override
-  Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context);
-    final _isLandscape = mediaQuery.orientation == Orientation.landscape;
+  List<Widget> _buildPortraitContent(
+      MediaQueryData mediaQuery, AppBar appBar, Widget txListWidget) {
+    return [
+      SizedBox(
+          height: (mediaQuery.size.height -
+                  appBar.preferredSize.height -
+                  mediaQuery.padding.top) *
+              0.5,
+          child: Chart(recentTransactions: _recentTransactions)),
+      txListWidget
+    ];
+  }
 
-    final dynamic appBar = Platform.isAndroid
+  Widget _buildAppBar() {
+    return Platform.isAndroid
         ? AppBar(
             title: Text(widget.title),
             actions: <Widget>[
@@ -135,6 +169,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: const Icon(CupertinoIcons.add),
                 onPressed: () => _startAddNewTransaction(context)),
           );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+    final isLandscape = mediaQuery.orientation == Orientation.landscape;
+
+    final dynamic appBar = _buildAppBar();
 
     final txListWidget = SizedBox(
       height: (mediaQuery.size.height -
@@ -146,45 +188,19 @@ class _MyHomePageState extends State<MyHomePage> {
     );
 
     final pageBody = SafeArea(
-        child: SingleChildScrollView(
-      child: Column(
-        // mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          if (_isLandscape)
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('Show chart',
-                    style: Theme.of(context).textTheme.headline6),
-                Switch.adaptive(
-                    activeColor: Theme.of(context).colorScheme.secondary,
-                    value: _showChart,
-                    onChanged: (a) => setState(() {
-                          _showChart = a;
-                        })),
-              ],
-            ),
-          if (!_isLandscape)
-            SizedBox(
-                height: (mediaQuery.size.height -
-                        appBar.preferredSize.height -
-                        mediaQuery.padding.top) *
-                    0.5,
-                child: Chart(recentTransactions: _recentTransactions)),
-          if (!_isLandscape) txListWidget,
-          if (_isLandscape)
-            _showChart
-                ? SizedBox(
-                    height: (mediaQuery.size.height -
-                            appBar.preferredSize.height -
-                            mediaQuery.padding.top) *
-                        0.7,
-                    child: Chart(recentTransactions: _recentTransactions))
-                : txListWidget,
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          // mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            if (!isLandscape)
+              ..._buildPortraitContent(mediaQuery, appBar, txListWidget),
+            if (isLandscape)
+              ..._buildLandscapeContent(mediaQuery, appBar, txListWidget),
+          ],
+        ),
       ),
-    ));
+    );
 
     return Platform.isAndroid
         ? Scaffold(
