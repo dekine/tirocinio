@@ -14,12 +14,15 @@ class MyApp extends StatelessWidget {
       title: 'DeliMeals',
       theme: ThemeData(
         primarySwatch: Colors.pink,
+        brightness: Brightness.light,
         canvasColor: const Color.fromRGBO(255, 254, 229, 1),
         colorScheme: ThemeData.light().colorScheme.copyWith(
               primary: Colors.pink,
               secondary: Colors.amber,
             ),
         fontFamily: 'Raleway',
+        appBarTheme: const AppBarTheme(
+            titleTextStyle: TextStyle(fontFamily: 'Raleway', fontSize: 20)),
         textTheme: ThemeData.light().textTheme.copyWith(
               bodyText1: const TextStyle(color: Color.fromRGBO(20, 51, 51, 1)),
               bodyText2: const TextStyle(color: Color.fromRGBO(20, 51, 51, 1)),
