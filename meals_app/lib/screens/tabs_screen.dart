@@ -32,7 +32,7 @@ class _TabsScreenState extends State<TabsScreen> {
         title: Text(_pages[_selectedPageIndex]['title'] as String),
       ),
       body: _pages[_selectedPageIndex]['page'] as Widget,
-      drawer: MainDrawer(),
+      drawer: const MainDrawer(),
       bottomNavigationBar: BottomNavigationBar(
         onTap: _selectPage,
         backgroundColor: Theme.of(context).primaryColor,
