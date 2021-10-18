@@ -79,6 +79,7 @@ class _MyAppState extends State<MyApp> {
             CategoryMealsScreen(availableMeals: _availableMeals),
         MealDetailScreen.routeName: (ctx) => const MealDetailScreen(),
         FiltersScreen.routeName: (ctx) => FiltersScreen(
+              currentFilters: _filters,
               setFilters: _setFilters,
             ),
       },

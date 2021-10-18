@@ -2,21 +2,34 @@ import 'package:flutter/material.dart';
 import '../widgets/main_drawer.dart';
 
 class FiltersScreen extends StatefulWidget {
-  const FiltersScreen({Key? key, required this.setFilters}) : super(key: key);
+  const FiltersScreen(
+      {Key? key, required this.setFilters, required this.currentFilters})
+      : super(key: key);
 
   static const routeName = '/filters';
 
   final Function setFilters;
+  final Map<String, bool> currentFilters;
 
   @override
   State<FiltersScreen> createState() => _FiltersScreenState();
 }
 
 class _FiltersScreenState extends State<FiltersScreen> {
-  bool _glutenFree = false;
-  bool _vegan = false;
-  bool _vegetarian = false;
-  bool _lactoseFree = false;
+  late bool _glutenFree;
+  late bool _vegan;
+  late bool _vegetarian;
+  late bool _lactoseFree;
+
+  @override
+  void initState() {
+    _glutenFree = widget.currentFilters['gluten']!;
+    _vegan = widget.currentFilters['vegan']!;
+    _vegetarian = widget.currentFilters['vegetarian']!;
+    _lactoseFree = widget.currentFilters['lactose']!;
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
