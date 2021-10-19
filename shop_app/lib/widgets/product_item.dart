@@ -29,15 +29,15 @@ class ProductItem extends StatelessWidget {
           ),
         ),
         footer: GridTileBar(
+          title: Text(
+            title,
+            textAlign: TextAlign.center,
+          ),
           backgroundColor: Colors.black87,
           leading: IconButton(
             icon: const Icon(Icons.favorite),
             color: Theme.of(context).colorScheme.secondary,
             onPressed: () {},
-          ),
-          title: Text(
-            title,
-            textAlign: TextAlign.center,
           ),
           trailing: IconButton(
             icon: const Icon(
