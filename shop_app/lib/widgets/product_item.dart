@@ -15,8 +15,10 @@ class ProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
+      // clipBehavior: Clip.hardEdge,
       child: GridTile(
         child: GestureDetector(
+          onDoubleTap: () {},
           onTap: () {
             Navigator.of(context).pushNamed(
               ProductDetailScreen.routeName,
