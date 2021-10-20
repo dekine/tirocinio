@@ -19,7 +19,7 @@ class ProductItem extends StatelessWidget {
       // clipBehavior: Clip.hardEdge,
       child: GridTile(
         child: GestureDetector(
-          onDoubleTap: () => product.toggleFavoriteStatus(),
+          // onDoubleTap: () => product.toggleFavoriteStatus(),
           onTap: () {
             Navigator.of(context).pushNamed(
               ProductDetailScreen.routeName,
