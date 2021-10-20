@@ -1,10 +1,9 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/cart_provider.dart' show Cart;
 import '../widgets/cart_item.dart';
+import '../providers/orders.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({Key? key}) : super(key: key);
@@ -33,7 +32,7 @@ class CartScreen extends StatelessWidget {
                   const Spacer(flex: 4),
                   Chip(
                     label: Text(
-                      '\$${cart.totalAmount}',
+                      '\$${cart.totalAmount.toStringAsFixed(2)}',
                       style: const TextStyle(
                         color: Colors.white,
                       ),
@@ -43,7 +42,13 @@ class CartScreen extends StatelessWidget {
                   const Spacer(),
                   ElevatedButton(
                     child: const Text('ORDER NOW'),
-                    onPressed: () {},
+                    onPressed: () {
+                      Provider.of<Orders>(context, listen: false).addOrder(
+                        cart.items.values.toList(),
+                        cart.totalAmount,
+                      );
+                      cart.clear();
+                    },
                     style: ButtonStyle(
                         textStyle: MaterialStateProperty.all(TextStyle(
                             color: Theme.of(context).colorScheme.primary))),
