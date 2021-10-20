@@ -62,8 +62,36 @@ class Products with ChangeNotifier {
 
   Product findById(String id) => _items.firstWhere((e) => e.id == id);
 
-  void addProduct(Product item) {
-    _items.add(item);
+  bool containsById(String id) {
+    for (var item in _items) {
+      if (item.id == id) return true;
+    }
+    return false;
+  }
+
+  void addProduct(Product product) {
+    final newProduct = Product(
+      title: product.title,
+      description: product.description,
+      price: product.price,
+      imageUrl: product.imageUrl,
+      id: DateTime.now().toString(),
+    );
+    _items.add(newProduct);
+    // _items.insert(0, newProduct); // at the start of the list
+    notifyListeners();
+  }
+
+  void updateProduct(String id, Product newProduct) {
+    final prodIndex = _items.indexWhere((prod) => prod.id == id);
+    if (prodIndex >= 0) {
+      _items[prodIndex] = newProduct;
+      notifyListeners();
+    }
+  }
+
+  void deleteProduct(String id) {
+    _items.removeWhere((prod) => prod.id == id);
     notifyListeners();
   }
 }
