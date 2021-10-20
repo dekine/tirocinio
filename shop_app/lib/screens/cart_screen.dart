@@ -30,16 +30,17 @@ class CartScreen extends StatelessWidget {
                     'Total',
                     style: TextStyle(fontSize: 20),
                   ),
-                  const Spacer(),
+                  const Spacer(flex: 4),
                   Chip(
                     label: Text(
                       '\$${cart.totalAmount}',
-                      style: TextStyle(
-                        color: Theme.of(context).textTheme.headline6!.color,
+                      style: const TextStyle(
+                        color: Colors.white,
                       ),
                     ),
                     backgroundColor: Theme.of(context).primaryColor,
                   ),
+                  const Spacer(),
                   ElevatedButton(
                     child: const Text('ORDER NOW'),
                     onPressed: () {},
