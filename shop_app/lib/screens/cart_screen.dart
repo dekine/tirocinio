@@ -49,6 +49,7 @@ class CartScreen extends StatelessWidget {
                         cart.totalAmount,
                       );
                       cart.clear();
+                      Navigator.of(context).pushReplacementNamed('/');
                     },
                     style: ButtonStyle(
                         textStyle: MaterialStateProperty.all(TextStyle(

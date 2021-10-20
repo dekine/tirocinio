@@ -15,6 +15,11 @@ class OrdersScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Your Orders'),
+        automaticallyImplyLeading: true,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pushReplacementNamed('/'),
+        ),
       ),
       body: ListView.builder(
         itemCount: orderData.orders.length,
