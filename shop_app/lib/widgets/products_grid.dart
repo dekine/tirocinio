@@ -15,15 +15,16 @@ class ProductsGrid extends StatelessWidget {
     final products =
         showOnlyFavorites ? productsData.favoriteItems : productsData.items;
     return GridView.builder(
-      padding: const EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(8.0),
       itemCount: products.length,
       itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
         value: products[i],
-        child: const ProductItem(
-            // id: products[i].id,
-            // title: products[i].title,
-            // imageUrl: products[i].imageUrl,
-            ),
+        child: ProductItem(
+          showOnlyFavorites: showOnlyFavorites,
+          // id: products[i].id,
+          // title: products[i].title,
+          // imageUrl: products[i].imageUrl,
+        ),
       ),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
