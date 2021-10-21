@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import '../providers/cart_provider.dart' show Cart;
 import '../widgets/cart_item.dart';
 import '../providers/orders_provider.dart';
-import '../screens/orders_screen.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({Key? key}) : super(key: key);
