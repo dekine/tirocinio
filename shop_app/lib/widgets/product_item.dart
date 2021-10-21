@@ -51,7 +51,7 @@ class ProductItem extends StatelessWidget {
                 ScaffoldMessenger.of(context).hideCurrentSnackBar();
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   content: const Text(''),
-                  duration: const Duration(seconds: 3),
+                  duration: const Duration(seconds: 2),
                   action: SnackBarAction(
                       label: 'UNDO',
                       onPressed: () => product.toggleFavoriteStatus()),
@@ -67,7 +67,7 @@ class ProductItem extends StatelessWidget {
                 ScaffoldMessenger.of(context).hideCurrentSnackBar();
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   content: const Text('Added item to the cart!'),
-                  duration: const Duration(seconds: 3),
+                  duration: const Duration(seconds: 2),
                   action: SnackBarAction(
                       label: 'UNDO',
                       onPressed: () => cart.removeSingleItem(product.id)),
