@@ -54,22 +54,20 @@ class Products with ChangeNotifier {
     return false;
   }
 
-  Future<void> addProduct(Product product) {
-    late final Product newProduct;
+  Future<void> addProduct(Product product) async {
     final url = Uri.https(
         'shop-app-77a56-default-rtdb.europe-west1.firebasedatabase.app',
         '/products.json');
-    return http
-        .post(url,
-            body: json.encode({
-              'title': product.title,
-              'description': product.description,
-              'price': product.price,
-              'imageUrl': product.imageUrl,
-              'isFavorite': product.isFavorite,
-            }))
-        .then((res) {
-      newProduct = Product(
+    try {
+      final res = await http.post(url,
+          body: json.encode({
+            'title': product.title,
+            'description': product.description,
+            'price': product.price,
+            'imageUrl': product.imageUrl,
+            'isFavorite': product.isFavorite,
+          }));
+      final newProduct = Product(
         id: json.decode(res.body)['name'],
         title: product.title,
         description: product.description,
@@ -78,7 +76,10 @@ class Products with ChangeNotifier {
       );
       _items.add(newProduct);
       notifyListeners();
-    });
+    } catch (err) {
+      print(err);
+      rethrow;
+    }
   }
 
   void updateProduct(String id, Product newProduct) {
