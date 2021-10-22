@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import './product.dart';
 
 class Products with ChangeNotifier {
@@ -37,28 +40,10 @@ class Products with ChangeNotifier {
     ),
   ];
 
-  // var _showFavoritesOnly = false;
-
-  // void showFavoritesOnly() {
-  //   _showFavoritesOnly = true;
-  //   notifyListeners();
-  // }
-
-  // void showAll() {
-  //   _showFavoritesOnly = false;
-  //   notifyListeners();
-  // }
-
   List<Product> get favoriteItems =>
       _items.where((item) => item.isFavorite).toList();
 
   List<Product> get items => [..._items];
-  // {
-  // if (_showFavoritesOnly) {
-  //   return _items.where((item) => item.isFavorite).toList();
-  // }
-  // return [..._items];
-  // }
 
   Product findById(String id) => _items.firstWhere((e) => e.id == id);
 
@@ -69,17 +54,31 @@ class Products with ChangeNotifier {
     return false;
   }
 
-  void addProduct(Product product) {
-    final newProduct = Product(
-      title: product.title,
-      description: product.description,
-      price: product.price,
-      imageUrl: product.imageUrl,
-      id: DateTime.now().toString(),
-    );
-    _items.add(newProduct);
-    // _items.insert(0, newProduct); // at the start of the list
-    notifyListeners();
+  Future<void> addProduct(Product product) {
+    late final Product newProduct;
+    final url = Uri.https(
+        'shop-app-77a56-default-rtdb.europe-west1.firebasedatabase.app',
+        '/products.json');
+    return http
+        .post(url,
+            body: json.encode({
+              'title': product.title,
+              'description': product.description,
+              'price': product.price,
+              'imageUrl': product.imageUrl,
+              'isFavorite': product.isFavorite,
+            }))
+        .then((res) {
+      newProduct = Product(
+        id: json.decode(res.body)['name'],
+        title: product.title,
+        description: product.description,
+        price: product.price,
+        imageUrl: product.imageUrl,
+      );
+      _items.add(newProduct);
+      notifyListeners();
+    });
   }
 
   void updateProduct(String id, Product newProduct) {
