@@ -44,6 +44,9 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
     super.didChangeDependencies();
   }
 
+  Future<void> _refreshProducts(BuildContext context) async =>
+      await Provider.of<Products>(context, listen: false).fetchAndSetProducts();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,7 +90,9 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
       drawer: const AppDrawer(),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
-          : ProductsGrid(showOnlyFavorites: _showOnlyFavorites),
+          : RefreshIndicator(
+              onRefresh: () => _refreshProducts(context),
+              child: ProductsGrid(showOnlyFavorites: _showOnlyFavorites)),
     );
   }
 }
