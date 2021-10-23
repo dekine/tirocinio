@@ -23,6 +23,7 @@ class ProductsOverviewScreen extends StatefulWidget {
 class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   bool _showOnlyFavorites = false;
   bool _isLoading = false;
+  bool _isEmpty = false;
 
   @override
   void initState() {
@@ -44,8 +45,14 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
     super.didChangeDependencies();
   }
 
-  Future<void> _refreshProducts(BuildContext context) async =>
+  Future<void> _refreshProducts(BuildContext context) async {
+    try {
       await Provider.of<Products>(context, listen: false).fetchAndSetProducts();
+      _isEmpty = false;
+    } catch (_) {
+      _isEmpty = true;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +99,16 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
           ? const Center(child: CircularProgressIndicator())
           : RefreshIndicator(
               onRefresh: () => _refreshProducts(context),
-              child: ProductsGrid(showOnlyFavorites: _showOnlyFavorites)),
+              child: _isEmpty
+                  ? Center(
+                      child: Column(
+                        children: const <Widget>[
+                          Text('Nothing to show :('),
+                          Text('Try refreshing')
+                        ],
+                      ),
+                    )
+                  : ProductsGrid(showOnlyFavorites: _showOnlyFavorites)),
     );
   }
 }

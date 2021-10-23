@@ -23,6 +23,11 @@ class OrderItem {
 class Orders with ChangeNotifier {
   List<OrderItem> _orders = [];
 
+  final String? authToken;
+  final String? userId;
+
+  Orders(this.authToken, this.userId, this._orders);
+
   List<OrderItem> get orders {
     return [..._orders];
   }
@@ -30,10 +35,10 @@ class Orders with ChangeNotifier {
   Future<void> fetchAndSetOrders() async {
     final url = Uri.https(
         'shop-app-77a56-default-rtdb.europe-west1.firebasedatabase.app',
-        '/orders.json');
-    final response = await http.get(url);
+        '/orders/$userId.json?auth=$authToken');
+    final res = await http.get(url);
     final List<OrderItem> loadedOrders = [];
-    final extractedData = json.decode(response.body) as Map<String, dynamic>;
+    final extractedData = json.decode(res.body) as Map<String, dynamic>;
 
     extractedData.forEach((orderId, orderData) {
       loadedOrders.add(
@@ -61,9 +66,9 @@ class Orders with ChangeNotifier {
   Future<void> addOrder(List<CartItem> cartProducts, double total) async {
     final url = Uri.https(
         'shop-app-77a56-default-rtdb.europe-west1.firebasedatabase.app',
-        '/orders.json');
+        '/orders/$userId.json?auth=$authToken');
     final timestamp = DateTime.now();
-    final response = await http.post(
+    final res = await http.post(
       url,
       body: json.encode({
         'amount': total,
@@ -81,7 +86,7 @@ class Orders with ChangeNotifier {
     _orders.insert(
       0,
       OrderItem(
-        id: json.decode(response.body)['name'],
+        id: json.decode(res.body)['name'],
         amount: total,
         dateTime: DateTime.now(),
         products: cartProducts,
