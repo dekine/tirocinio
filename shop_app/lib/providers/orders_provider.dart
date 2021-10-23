@@ -33,29 +33,36 @@ class Orders with ChangeNotifier {
   }
 
   Future<void> fetchAndSetOrders() async {
-    final url = Uri.https(
-        'shop-app-77a56-default-rtdb.europe-west1.firebasedatabase.app',
-        '/orders/$userId.json?auth=$authToken');
+    final url = Uri.parse(
+        'https://shop-app-77a56-default-rtdb.europe-west1.firebasedatabase.app/orders/$userId.json?auth=$authToken');
     final res = await http.get(url);
     final List<OrderItem> loadedOrders = [];
-    final extractedData = json.decode(res.body) as Map<String, dynamic>;
-
+    late Map<String, dynamic> extractedData;
+    if (res.body.isNotEmpty) {
+      extractedData = json.decode(res.body) as Map<String, dynamic>;
+    }
+    bool isListEmpty = false;
+    if (extractedData.isEmpty) {
+      isListEmpty = true;
+    }
     extractedData.forEach((orderId, orderData) {
       loadedOrders.add(
         OrderItem(
           id: orderId,
           amount: orderData['amount'],
           dateTime: DateTime.parse(orderData['dateTime']),
-          products: (orderData['products'] as List<dynamic>)
-              .map(
-                (item) => CartItem(
-                  id: item['id'],
-                  price: item['price'],
-                  quantity: item['quantity'],
-                  title: item['title'],
-                ),
-              )
-              .toList(),
+          products: isListEmpty
+              ? List.empty()
+              : (orderData['products'] as List<dynamic>)
+                  .map(
+                    (item) => CartItem(
+                      id: item['id'],
+                      price: item['price'],
+                      quantity: item['quantity'],
+                      title: item['title'],
+                    ),
+                  )
+                  .toList(),
         ),
       );
     });
@@ -64,9 +71,8 @@ class Orders with ChangeNotifier {
   }
 
   Future<void> addOrder(List<CartItem> cartProducts, double total) async {
-    final url = Uri.https(
-        'shop-app-77a56-default-rtdb.europe-west1.firebasedatabase.app',
-        '/orders/$userId.json?auth=$authToken');
+    final url = Uri.parse(
+        'https://shop-app-77a56-default-rtdb.europe-west1.firebasedatabase.app/orders/$userId.json?auth=$authToken');
     final timestamp = DateTime.now();
     final res = await http.post(
       url,

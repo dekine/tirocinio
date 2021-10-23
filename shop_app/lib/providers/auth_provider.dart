@@ -40,7 +40,7 @@ class Auth with ChangeNotifier {
       final res = await http.post(
         url,
         body: json.encode({
-          'email': email, // andrea.pugliatti@outlook.it
+          'email': email,
           'password': password, // andrea123
           'returnSecureToken': true,
         }),
