@@ -10,7 +10,7 @@ class Auth with ChangeNotifier {
 
   Future<void> _authenticate(
       String email, String password, String urlSegment) async {
-    const apiKey = '';
+    const apiKey = ''; // AIzaSyDSi2LS0QpelK5w5y0fRaMmbnSij_bsKac
     final url = Uri.parse(
         'https://identitytoolkit.googleapis.com/v1/accounts:$urlSegment?key=$apiKey');
 
