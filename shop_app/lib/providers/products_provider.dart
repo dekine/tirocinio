@@ -51,7 +51,7 @@ class Products with ChangeNotifier {
       }
 
       final favoriteData =
-          json.decode(favoriteRes.body) as Map<String, dynamic>;
+          json.decode(favoriteRes.body.toString()) as Map<String, dynamic>;
 
       final List<Product> loadedData = [];
       extractedData.forEach((productId, productData) {
