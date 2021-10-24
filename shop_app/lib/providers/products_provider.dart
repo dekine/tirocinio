@@ -61,8 +61,9 @@ class Products with ChangeNotifier {
           description: productData['description'],
           price: productData['price'],
           imageUrl: productData['imageUrl'],
-          isFavorite:
-              favoriteData == null ? false : favoriteData[productId] ?? false,
+          isFavorite: favoriteData[productId] == null
+              ? false
+              : favoriteData[productId] ?? false,
         ));
       });
       _items = loadedData;

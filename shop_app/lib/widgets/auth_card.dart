@@ -93,6 +93,9 @@ class _AuthCardState extends State<AuthCard>
           _authData['password']!,
         );
       }
+      // setState(() {
+      //   _isLoading = false;
+      // });
     } on HttpException catch (error) {
       var errorMessage = 'Authentication failed: ';
       if (error.toString().contains('EMAIL_EXISTS')) {
@@ -106,15 +109,16 @@ class _AuthCardState extends State<AuthCard>
       } else if (error.toString().contains('INVALID_PASSWORD')) {
         errorMessage += 'Invalid password.';
       }
+      setState(() {
+        _isLoading = false;
+      });
+
       _showErrorDialog(errorMessage);
     } catch (error) {
       const errorMessage =
           'Could not authenticate you. Please try again later.';
       _showErrorDialog(errorMessage);
     }
-    setState(() {
-      _isLoading = false;
-    });
   }
 
   void _switchAuthMode() {

@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/http_exception.dart';
+import '../models/api_key.dart';
 
 class Auth with ChangeNotifier {
   String? _token;
@@ -32,9 +33,9 @@ class Auth with ChangeNotifier {
 
   Future<void> _authenticate(
       String email, String password, String urlSegment) async {
-    const apiKey = ''; // AIzaSyDSi2LS0QpelK5w5y0fRaMmbnSij_bsKac
     final url = Uri.parse(
         'https://identitytoolkit.googleapis.com/v1/accounts:$urlSegment?key=$apiKey');
+    // apiKey = AIzaSyDSi2LS0QpelK5w5y0fRaMmbnSij_bsKac
 
     try {
       final res = await http.post(
@@ -78,18 +79,10 @@ class Auth with ChangeNotifier {
 
     var url = Uri.parse(
         'https://shop-app-77a56-default-rtdb.europe-west1.firebasedatabase.app/orders/$_userId/a.json?auth=$_token');
-    await http.put(url,
-        body: json.encode({
-          'amount': '',
-          'dateTime': '',
-          'products': '',
-        }));
+    await http.put(url, body: json.encode(''));
     url = Uri.parse(
         'https://shop-app-77a56-default-rtdb.europe-west1.firebasedatabase.app/userFavorites/$_userId/a.json?auth=$_token');
-    await http.put(url,
-        body: json.encode(
-          false,
-        ));
+    await http.put(url, body: json.encode(''));
     // return _authenticate(email, password, 'signUp');
   }
 
