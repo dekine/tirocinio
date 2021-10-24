@@ -71,7 +71,26 @@ class Auth with ChangeNotifier {
   }
 
   Future<void> signup(String email, String password) async {
-    return _authenticate(email, password, 'signUp');
+    await _authenticate(email, password, 'signUp');
+    if (_userId == null || _token == null) {
+      return;
+    }
+
+    var url = Uri.parse(
+        'https://shop-app-77a56-default-rtdb.europe-west1.firebasedatabase.app/orders/$_userId/a.json?auth=$_token');
+    await http.put(url,
+        body: json.encode({
+          'amount': '',
+          'dateTime': '',
+          'products': '',
+        }));
+    url = Uri.parse(
+        'https://shop-app-77a56-default-rtdb.europe-west1.firebasedatabase.app/userFavorites/$_userId/a.json?auth=$_token');
+    await http.put(url,
+        body: json.encode(
+          false,
+        ));
+    // return _authenticate(email, password, 'signUp');
   }
 
   Future<void> login(String email, String password) async {

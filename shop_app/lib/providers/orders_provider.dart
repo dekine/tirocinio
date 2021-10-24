@@ -41,28 +41,27 @@ class Orders with ChangeNotifier {
     if (res.body.isNotEmpty) {
       extractedData = json.decode(res.body) as Map<String, dynamic>;
     }
-    bool isListEmpty = false;
-    if (extractedData.isEmpty) {
-      isListEmpty = true;
+
+    if (extractedData['amount'] == '') {
+      return;
     }
+
     extractedData.forEach((orderId, orderData) {
       loadedOrders.add(
         OrderItem(
           id: orderId,
           amount: orderData['amount'],
           dateTime: DateTime.parse(orderData['dateTime']),
-          products: isListEmpty
-              ? List.empty()
-              : (orderData['products'] as List<dynamic>)
-                  .map(
-                    (item) => CartItem(
-                      id: item['id'],
-                      price: item['price'],
-                      quantity: item['quantity'],
-                      title: item['title'],
-                    ),
-                  )
-                  .toList(),
+          products: (orderData['products'] as List<dynamic>)
+              .map(
+                (item) => CartItem(
+                  id: item['id'],
+                  price: item['price'],
+                  quantity: item['quantity'],
+                  title: item['title'],
+                ),
+              )
+              .toList(),
         ),
       );
     });

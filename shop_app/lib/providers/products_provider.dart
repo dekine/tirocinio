@@ -36,30 +36,33 @@ class Products with ChangeNotifier {
 
     try {
       final res = await http.get(url);
+
+      if (res.body.isEmpty) {
+        return;
+      }
+
       final extractedData = json.decode(res.body) as Map<String, dynamic>;
       url = Uri.parse(
           'https://shop-app-77a56-default-rtdb.europe-west1.firebasedatabase.app/userFavorites/$userId.json?auth=$authToken');
-      final favoriteResponse = await http.get(url);
-      final favoriteData =
-          json.decode(favoriteResponse.body) as Map<String, dynamic>;
+      final favoriteRes = await http.get(url);
 
-      bool isFavEmpty = false;
-      if (favoriteData.isEmpty) {
-        isFavEmpty = true;
+      if (favoriteRes.body.isEmpty) {
+        return;
       }
+
+      final favoriteData =
+          json.decode(favoriteRes.body) as Map<String, dynamic>;
+
       final List<Product> loadedData = [];
       extractedData.forEach((productId, productData) {
-        var isFav = false;
-        if (favoriteData[productId] == null) {
-          isFav = true;
-        }
         loadedData.add(Product(
           id: productId,
           title: productData['title'],
           description: productData['description'],
           price: productData['price'],
           imageUrl: productData['imageUrl'],
-          isFavorite: isFavEmpty || isFav ? false : favoriteData[productId],
+          isFavorite:
+              favoriteData == null ? false : favoriteData[productId] ?? false,
         ));
       });
       _items = loadedData;
