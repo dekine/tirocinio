@@ -15,6 +15,8 @@ import './providers/cart_provider.dart';
 import './providers/orders_provider.dart';
 import './providers/auth_provider.dart';
 
+import './helpers/custom_route.dart';
+
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -52,6 +54,10 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.purple,
             fontFamily: 'Lato',
+            pageTransitionsTheme: PageTransitionsTheme(builders: {
+              TargetPlatform.android: CustomPageTransitionBuilder(),
+              TargetPlatform.iOS: CustomPageTransitionBuilder(),
+            }),
             colorScheme: ThemeData.light().colorScheme.copyWith(
                   primary: Colors.purple,
                   secondary: Colors.deepOrange,

@@ -219,23 +219,22 @@ class _AuthCardState extends State<AuthCard>
                 const SizedBox(
                   height: 20,
                 ),
-                if (_isLoading)
-                  const CircularProgressIndicator()
-                else
-                  ElevatedButton(
-                    child:
-                        Text(_authMode == AuthMode.login ? 'LOGIN' : 'SIGN UP'),
-                    onPressed: _submit,
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
+                _isLoading
+                    ? const CircularProgressIndicator()
+                    : ElevatedButton(
+                        child: Text(
+                            _authMode == AuthMode.login ? 'LOGIN' : 'SIGN UP'),
+                        onPressed: _submit,
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 30.0, vertical: 8.0),
+                          primary: Theme.of(context).primaryColor,
+                          textStyle: Theme.of(context).textTheme.headline6,
+                        ),
                       ),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 30.0, vertical: 8.0),
-                      primary: Theme.of(context).primaryColor,
-                      textStyle: Theme.of(context).textTheme.headline6,
-                    ),
-                  ),
                 TextButton(
                   child: Text(
                       '${_authMode == AuthMode.login ? 'SIGN UP' : 'LOGIN'} INSTEAD'),
