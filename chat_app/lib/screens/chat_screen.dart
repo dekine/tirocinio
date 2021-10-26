@@ -4,6 +4,18 @@ import 'package:firebase_core/firebase_core.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({Key? key}) : super(key: key);
+
+  Widget _buildError() {
+    return Center(
+      child: Column(
+        children: const <Widget>[
+          CircularProgressIndicator(),
+          Text('Something went wrong'),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,28 +25,15 @@ class ChatScreen extends StatelessWidget {
             .snapshots(),
         builder: (ctx, streamSnapshot) {
           if (streamSnapshot.hasError) {
-            return const Text('Something went wrong');
+            return _buildError();
           }
           if (streamSnapshot.connectionState == ConnectionState.waiting ||
               streamSnapshot.data == null) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return const Center(child: CircularProgressIndicator());
           }
-          // return ListView(
-          //   children:
-          //       streamSnapshot.data!.docs.map((DocumentSnapshot document) {
-          //     Map<String, dynamic> data =
-          //         document.data()! as Map<String, dynamic>;
-          //     return ListTile(
-          //       title: Text(data['full_name']),
-          //       subtitle: Text(data['company']),
-          //     );
-          //   }).toList(),
-          // );
           final documents = streamSnapshot.data?.docs;
-          if (documents == null) return const Text('Something went wrong');
 
+          if (documents == null) return _buildError();
           return ListView.builder(
             itemCount: documents.length,
             itemBuilder: (ctx, index) => Container(
