@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "902153894413",
+    "project_id": "chat-app-cdabe",
+    "storage_bucket": "chat-app-cdabe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:902153894413:android:28b31e3895a623d91d3344",
+        "android_client_info": {
+          "package_name": "com.dekine.chat_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "902153894413-gfp4n8s6bq2ttrh6k7vs07g5gic2ud7p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBK4_yi13FnX9wvML3wJ8a5RFpMsl6UT1A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "902153894413-gfp4n8s6bq2ttrh6k7vs07g5gic2ud7p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
