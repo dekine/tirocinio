@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import './screens/auth_screen.dart';
-import './screens/chat_screen.dart';
+// import './screens/chat_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,7 +25,8 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.pink,
           backgroundColor: Colors.pink,
           accentColor: Colors.deepPurple,
-          brightness: Brightness.dark,
+          // cardColor: Colors.grey,
+          brightness: Brightness.light,
         ),
         buttonTheme: ButtonTheme.of(context).copyWith(
           buttonColor: Colors.pink,
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      home: const ChatScreen(),
+      home: const AuthScreen(),
     );
   }
 }
