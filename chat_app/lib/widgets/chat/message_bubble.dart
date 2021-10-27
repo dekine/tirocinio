@@ -5,11 +5,13 @@ class MessageBubble extends StatelessWidget {
     Key? key,
     required this.message,
     required this.username,
+    required this.image,
     required this.isMe,
   }) : super(key: key);
 
   final String message;
   final String username;
+  final String image;
   final bool isMe;
 
   @override
@@ -36,7 +38,7 @@ class MessageBubble extends StatelessWidget {
                       : const Radius.circular(12),
                 ),
               ),
-              width: 240,
+              width: 200,
               padding: const EdgeInsets.symmetric(
                 vertical: 10,
                 horizontal: 16,
@@ -53,19 +55,13 @@ class MessageBubble extends StatelessWidget {
                     username,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: isMe
-                          ? Colors.black
-                          : Colors
-                              .white, // Theme.of(context).textTheme.headline6!.color,
+                      color: isMe ? Colors.black : Colors.white,
                     ),
                   ),
                   Text(
                     message,
                     style: TextStyle(
-                      color: isMe
-                          ? Colors.black
-                          : Colors
-                              .white, // Theme.of(context).textTheme.headline6!.color,
+                      color: isMe ? Colors.black : Colors.white,
                     ),
                     textAlign: isMe ? TextAlign.end : TextAlign.start,
                   ),
@@ -73,6 +69,17 @@ class MessageBubble extends StatelessWidget {
               ),
             ),
           ],
+        ),
+        Positioned(
+          top: 0,
+          left: isMe ? null : 140,
+          right: isMe ? 140 : null,
+          child: CircleAvatar(
+            radius: 28,
+            backgroundImage: NetworkImage(
+              image,
+            ),
+          ),
         ),
       ],
       clipBehavior: Clip.none,

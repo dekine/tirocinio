@@ -1,8 +1,9 @@
 import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 import '../widgets/auth/auth_form.dart';
 
@@ -29,12 +30,23 @@ class _AuthScreenState extends State<AuthScreen> {
         authResult = await _auth.createUserWithEmailAndPassword(
             email: email, password: password);
       }
-      FirebaseFirestore.instance
+
+      final ref = FirebaseStorage.instance
+          .ref()
+          .child('user_image')
+          .child(authResult.user!.uid + '.jpg');
+
+      await ref.putFile(image);
+
+      final url = await ref.getDownloadURL();
+
+      await FirebaseFirestore.instance
           .collection('users')
           .doc(authResult.user!.uid)
           .set({
         'username': username,
         'email': email,
+        'image_url': url,
       });
       setState(() {
         _isLoading = false;
@@ -59,9 +71,9 @@ class _AuthScreenState extends State<AuthScreen> {
       });
     } catch (error) {
       print('Unknown error: ${error.toString()}');
-      setState(() {
-        _isLoading = false;
-      });
+      // setState(() {
+      //   _isLoading = false;
+      // });
     }
   }
 

@@ -23,11 +23,13 @@ class _NewMessageState extends State<NewMessage> {
         .collection('users')
         .doc(user.uid)
         .get();
+
     FirebaseFirestore.instance.collection('chat').add({
       'text': _enteredMessage,
       'createdAt': Timestamp.now(),
       'userId': user.uid,
-      'username': userData['username'],
+      'username': userData.data()?['username'],
+      'userImage': userData.data()?['image_url']
     });
     _controller.clear();
   }
@@ -35,11 +37,11 @@ class _NewMessageState extends State<NewMessage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.bottomCenter,
           end: Alignment.topCenter,
-          colors: [Colors.grey, Colors.white],
+          colors: [Colors.grey[350]!, Colors.white],
         ),
         // border:
         //     Border.all(width: 1, color: Theme.of(context).colorScheme.primary),
