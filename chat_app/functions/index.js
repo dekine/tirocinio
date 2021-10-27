@@ -1,12 +1,12 @@
-import { firestore } from "firebase-functions";
-import { initializeApp, messaging } from "firebase-admin";
+const functions = require("firebase-functions");
+const admin = require("firebase-admin");
 
-initializeApp();
+admin.initializeApp();
 
-export const myFunction = firestore
+exports.myFunction = functions.firestore
     .document("chat/{message}")
     .onCreate((snapshot, _) => {
-      return messaging().sendToTopic("chat", {
+      return admin.messaging().sendToTopic("chat", {
         notification: {
           title: snapshot.data().username,
           body: snapshot.data().text,
