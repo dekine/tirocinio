@@ -19,11 +19,11 @@ class _ChatScreenState extends State<ChatScreen> {
     final fbm = FirebaseMessaging.instance;
     fbm.requestPermission();
     FirebaseMessaging.onMessage.listen((message) {
-      print(message);
+      print(message.data.toString());
       return;
     });
     FirebaseMessaging.onMessageOpenedApp.listen((message) {
-      print(message);
+      print(message.data.toString());
       return;
     });
     fbm.subscribeToTopic('chat');
