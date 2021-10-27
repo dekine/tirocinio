@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/widgets.dart';
 
 class NewMessage extends StatefulWidget {
   const NewMessage({Key? key}) : super(key: key);
@@ -34,6 +35,15 @@ class _NewMessageState extends State<NewMessage> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.bottomCenter,
+          end: Alignment.topCenter,
+          colors: [Colors.grey, Colors.white],
+        ),
+        // border:
+        //     Border.all(width: 1, color: Theme.of(context).colorScheme.primary),
+      ),
       margin: const EdgeInsets.only(top: 8),
       padding: const EdgeInsets.all(8),
       child: Row(
@@ -52,12 +62,15 @@ class _NewMessageState extends State<NewMessage> {
               },
             ),
           ),
-          IconButton(
-            color: Theme.of(context).primaryColor,
-            icon: const Icon(
-              Icons.send_rounded,
+          Padding(
+            padding: const EdgeInsets.only(top: 25.0),
+            child: IconButton(
+              color: Theme.of(context).colorScheme.secondary,
+              icon: const Icon(
+                Icons.send_rounded,
+              ),
+              onPressed: _enteredMessage.trim().isEmpty ? null : _sendMessage,
             ),
-            onPressed: _enteredMessage.trim().isEmpty ? null : _sendMessage,
           )
         ],
       ),
