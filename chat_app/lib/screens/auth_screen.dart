@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,8 +15,8 @@ class AuthScreen extends StatefulWidget {
 class _AuthScreenState extends State<AuthScreen> {
   final _auth = FirebaseAuth.instance;
   var _isLoading = false;
-  void _submitAuthForm(
-      String email, String username, String password, bool isLogin) async {
+  void _submitAuthForm(String email, String username, String password,
+      File image, bool isLogin) async {
     UserCredential authResult;
     try {
       setState(() {
