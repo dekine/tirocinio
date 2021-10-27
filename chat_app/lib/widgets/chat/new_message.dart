@@ -43,8 +43,6 @@ class _NewMessageState extends State<NewMessage> {
           end: Alignment.topCenter,
           colors: [Colors.grey[350]!, Colors.white],
         ),
-        // border:
-        //     Border.all(width: 1, color: Theme.of(context).colorScheme.primary),
       ),
       margin: const EdgeInsets.only(top: 8),
       padding: const EdgeInsets.all(8),
