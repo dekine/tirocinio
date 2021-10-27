@@ -35,6 +35,7 @@ class MyApp extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
           ),
         ),
+        textTheme: const TextTheme(headline6: TextStyle()),
       ),
       debugShowCheckedModeBanner: false,
       home: StreamBuilder(
