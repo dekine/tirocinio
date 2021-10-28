@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       value: GreatPlaces(),
       child: MaterialApp(
         title: 'Flutter Demo',
-        theme: ThemeData().copyWith(
+        theme: ThemeData(
             primaryColor: Colors.indigo,
             colorScheme: ThemeData.light().colorScheme.copyWith(
                   primary: Colors.indigo,
